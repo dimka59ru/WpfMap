@@ -4,9 +4,31 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfMap"
+        xmlns:converters="clr-namespace:WpfMap.Converters"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <converters:DeviceColorConverter x:Key="deviceColorConverter" />
+
+    </Window.Resources>
     <Grid>
-        
+        <!--<local:DeviceControl BorderColor={Bindi}"/>-->
+            <ItemsControl x:Name="ItemsControl">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+                        <local:DeviceControl 
+                            BorderColor="{Binding Path=IsAvailable, Converter={StaticResource deviceColorConverter}}"
+                            Model="{Binding Path=Model}"
+                            Ip="{Binding Path=Ip}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Window>
