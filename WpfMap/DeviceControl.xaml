@@ -4,15 +4,49 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfMap"
+             xmlns:converters="clr-namespace:WpfMap.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100">
+    <UserControl.Resources>
+        <converters:PortHeightConverter x:Key="portHeightConverter" />
+        <converters:PortColorConverter x:Key="portColorConverter" />
+    </UserControl.Resources>
     <Grid>
         <Border BorderBrush="{Binding Path=BorderColor}" BorderThickness="3" Width="100" Height="100" 
-                x:Name="LayoutRoot" Margin="2" Padding="2">
-            <StackPanel>
-                <TextBlock Text="{Binding Path=Model}"/>
-                <TextBlock Text="{Binding Path=Ip}"/>
-            </StackPanel>            
+                x:Name="LayoutRoot" Margin="2" Padding="2" Background="White">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="0.5*" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0">
+                    <TextBlock Text="{Binding Path=Model}"/>
+                    <TextBlock Text="{Binding Path=Ip}"/>
+                </StackPanel>
+
+                <ItemsControl ItemsSource="{Binding Path=Ports}" Grid.Row="1" VerticalAlignment="Bottom">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+                                    <TextBlock Text="{Binding Path=Id}" HorizontalAlignment="Center" />
+                                    <Rectangle Width="10" 
+                                                   Height="{Binding Path=Sfp, Converter={StaticResource portHeightConverter}}" 
+                                                   Fill="{Binding Path=Link, Converter={StaticResource portColorConverter}}"                                                  
+                                                   Margin="0,2,2,0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                
+
+            </Grid>                      
         </Border>
     </Grid>
 </UserControl>

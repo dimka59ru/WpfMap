@@ -66,6 +66,19 @@ namespace WpfMap
 
         #endregion
 
+        #region Ports DP
+        public object Ports
+        {
+            get { return (object)GetValue(PortsProperty); }
+            set { SetValue(PortsProperty, value); }
+        }
+
+        public static readonly DependencyProperty PortsProperty =
+            DependencyProperty.Register("Ports", typeof(object),
+              typeof(DeviceControl), new PropertyMetadata(null));
+
+        #endregion
+
 
     }
 }

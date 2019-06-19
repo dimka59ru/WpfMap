@@ -11,5 +11,6 @@ namespace WpfMap.Models
         public string Model { get; set; }
         public string Ip { get; set; }
         public bool IsAvailable { get; set; }
+        public Port[] Ports { get; set; }
     }
 }

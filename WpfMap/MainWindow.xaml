@@ -6,13 +6,12 @@
         xmlns:local="clr-namespace:WpfMap"
         xmlns:converters="clr-namespace:WpfMap.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Background="#FFBBBBBB">
     <Window.Resources>
         <converters:DeviceColorConverter x:Key="deviceColorConverter" />
 
     </Window.Resources>
-    <Grid>
-        <!--<local:DeviceControl BorderColor={Bindi}"/>-->
+    <Grid>        
             <ItemsControl x:Name="ItemsControl">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -21,11 +20,12 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+                    <StackPanel>
                         <local:DeviceControl 
                             BorderColor="{Binding Path=IsAvailable, Converter={StaticResource deviceColorConverter}}"
                             Model="{Binding Path=Model}"
-                            Ip="{Binding Path=Ip}"/>
+                            Ip="{Binding Path=Ip}"
+                            Ports="{Binding Path=Ports}"/>                        
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
